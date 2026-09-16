@@ -19,9 +19,10 @@ class Client(QObject):
         self.running = True
 
         self.receive_thread = threading.Thread(
-            target=None
+            target=self._recieve_loop,
+            daemon=True
         )
-
+        self.receive_thread.start()
 
     def send_message(self, message: str):
         self.client.sendall(message.encode())
@@ -46,4 +47,5 @@ class Client(QObject):
         self.disconnect.emit()
 
     def close(self):
+        self.running = False
         self.client.close()
