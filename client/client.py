@@ -45,9 +45,5 @@ class Client(QObject):
 
         self.disconnect.emit()
 
-
-    def receive(self):
-        return self.client.recv(1024).decode()
-
     def close(self):
         self.client.close()
